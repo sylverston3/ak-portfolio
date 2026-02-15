@@ -1,0 +1,377 @@
+---
+const namePart1 = "KLENΙATI";
+const namePart2 = "ARGYRO";
+
+const projects = [
+  { 
+    slug: "project-01",
+    name: "Research center", 
+    year: "2025-2026", 
+    type: "Architectural design",
+    image: "/FIL_9117.png" 
+  },
+  { 
+    slug: "project-02",
+    name: "Infinity bagel", 
+    year: "2025", 
+    type: "Computational Design & Fabrication",
+    image: "/p_02_01.jpg" 
+  },
+  { 
+    slug: "project-03",
+    name: "TEDxNTUA", 
+    year: "2026", 
+    type: "Visual Identity & Creative Direction",
+    image: "/p_03_11.png" 
+  },
+  { 
+    slug: "project-04",
+    name: "Convergence", 
+    year: "2025", 
+    type: "Computational Furniture Design & Digital Fabrication",
+    image: "/p_04_01.jpg" 
+  },
+];
+---
+
+<html lang="el">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <title>{namePart1} • {namePart2}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div id="heroDot" class="moving-dot"></div>
+
+  <div class="mini-menu" id="miniMenu">
+    <button class="menu-item menu-link-effect" data-go="home">home.</button>
+    <button class="menu-item menu-link-effect" data-go="about">about.</button>
+    <button class="menu-item menu-link-effect" data-go="projects">projects.</button>
+  </div>
+
+  <div class="snap" id="snapRoot">
+
+    <section class="slide intro" id="home" data-cursor="intro">
+      <nav class="section-nav">
+        <div class="logo-text">A.K.</div>
+        <div class="topnav">
+          <button class="navBtn underline-hover" data-go="about">about.</button>
+          <button class="navBtn underline-hover" data-go="projects">projects.</button>
+        </div>
+      </nav>
+
+      <div class="marquee" aria-hidden="true">
+        <div class="track">
+          {Array(20).fill(0).map(() => <span>new project — </span>)}
+          {Array(20).fill(0).map(() => <span>new project — </span>)}
+        </div>
+      </div>
+
+      <div class="hero">
+        <div class="heroHeader">
+          <span class="role">ARCHITECTURAL DESIGNER</span>
+          <h1 class="heroName" id="heroName">
+            <span class="name-part">{namePart1}</span>
+            <div class="dot-anchor" id="anchorHome"></div>
+            <span class="name-part">{namePart2}</span>
+          </h1>
+          <div class="heroMeta">
+            <span>BASED IN ATHENS</span>
+            <span class="dot" style="color: var(--white);">•</span> 
+            <span>EST. 2026</span>
+          </div>
+        </div>
+        <div class="scroll-hint"><span>scroll</span><span>↓</span></div>
+      </div>
+    </section>
+
+    <section class="slide about" id="about" data-cursor="about">
+      <nav class="section-nav">
+        <div style="flex:1"></div> 
+        <div class="burger-menu-trigger" id="btnAbout">
+          <span></span><span></span><span></span>
+        </div>
+      </nav>
+      
+      <div class="aboutInnerContainer">
+        <div class="aboutPhotoSide">
+           <div class="photoWrapper">
+              <img src="mtt-179.jpg" alt="Profile" class="aboutImg" />
+           </div>
+        </div>
+
+        <div class="aboutTextSide">
+          <h2 class="section-title title-red no-margin-top">
+              about<span class="dot-anchor inline" id="anchorAbout"></span>
+          </h2>
+          <div class="aboutContent condensed">
+            <p class="white-text small-p">
+              I am a 3rd-year Architecture student at the National Technical University of Athens (NTUA). Today I feel more confident than ever in my choice. I have fully immersed myself in the magical world of architecture, where the study of space, the manipulation of light, and the creation of unique experiences are a constant source of inspiration.
+            </p>
+            <p class="white-text small-p">
+              My journey has led me to computational design and Rhino/Grasshopper logic. In parallel, my involvement with the TEDxNTUA Design Team has allowed me to manage visual identities, applying architectural thinking to a different, yet equally creative scale.
+            </p>
+            <p class="white-text small-p">
+              Collaboration is fundamental to my work. I believe that while a single idea can be good, the synthesis of multiple perspectives is what creates something truly magical.
+            </p>
+            <p class="white-text small-p last">
+              Here, you can follow my 'travels' through these worlds and see what I have gained from each one.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="scroll-hint white-hint"><span>scroll</span><span>↓</span></div>
+    </section>
+
+    <section class="slide projects" id="projects" data-cursor="projects">
+      <nav class="section-nav">
+        <div style="flex:1"></div>
+        <div class="burger-menu-trigger" id="btnProjects">
+          <span></span><span></span><span></span>
+        </div>
+      </nav>
+      <div class="projectsInner">
+        <h2 class="section-title projects-title">
+            selected work<span class="dot-anchor inline" id="anchorProjects"></span>
+        </h2>
+        
+        <div class="grid">
+          {projects.map(p => (
+            <div class="card">
+              <a href={`/projects/${p.slug}`} style="display: contents; color: inherit; text-decoration: none;">
+                <div class="thumb-container">
+                  <img src={p.image} alt={p.name} class="project-img" />
+                </div>
+                <div class="meta">
+                  <strong class="card-title">{p.name}</strong>
+                  <span class="card-sub">{p.year} • {p.type}</span>
+                </div>
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="cursor" id="customCursor" aria-hidden="true"></div>
+
+  <style>
+    :root { --red: #ff1a2d; --black: #0b0d10; --white: #ffffff; }
+    
+    ::-webkit-scrollbar { width: 14px; background-color: #000; }
+    ::-webkit-scrollbar-thumb { 
+      background-color: var(--red); 
+      border-radius: 50px; 
+      border: 3px solid #000; 
+    }
+
+    body { margin: 0; background: var(--black); cursor: none; font-family: system-ui, sans-serif; overflow: hidden; }
+
+    .moving-dot {
+      position: fixed; width: 20px; height: 20px; background-color: var(--white);
+      border-radius: 50%; pointer-events: none; z-index: 9999;
+      transition: left 0.8s cubic-bezier(0.85, 0, 0.15, 1), top 0.8s cubic-bezier(0.85, 0, 0.15, 1), background-color 0.4s ease;
+      transform: translate(-50%, -50%);
+    }
+
+    .dot-anchor { width: 20px; height: 20px; display: inline-block; flex-shrink: 0; visibility: hidden; }
+    .dot-anchor.inline { margin-left: 10px; vertical-align: middle; }
+
+    .heroName { font-family: "Playfair Display", serif; font-weight: 900; font-size: clamp(40px, 8vw, 110px); margin: 10px 0; display: flex; align-items: center; justify-content: center; gap: 30px; }
+    .underline-hover { position: relative; padding-bottom: 2px; }
+    .underline-hover::after { content: ''; position: absolute; width: 100%; height: 3px; bottom: 0; left: 0; background-color: #000; transform: scaleX(0); transform-origin: bottom right; transition: transform 0.3s ease-out; }
+    .underline-hover:hover::after { transform: scaleX(1); transform-origin: bottom left; }
+
+    .mini-menu { position: fixed; top: 70px; right: 40px; background: #151515; border: 1px solid #333; padding: 25px; display: flex; flex-direction: column; gap: 15px; z-index: 5000; opacity: 0; pointer-events: none; transform: translateY(-10px); transition: 0.3s ease; }
+    .mini-menu.active { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    .menu-item { background: none; border: 1px solid transparent; color: #fff; font-family: "Playfair Display"; font-size: 22px; text-align: right; cursor: none; padding: 8px 15px; transition: color 0.3s ease, border-color 0.3s ease; position: relative; }
+    .menu-item:hover { color: var(--red); }
+    .menu-link-effect::after { content: ''; position: absolute; width: calc(100% - 30px); height: 2px; bottom: 8px; right: 15px; background-color: var(--red); transform: scaleX(0); transform-origin: right; transition: transform 0.3s ease; }
+    .menu-item:hover::after { transform: scaleX(1); }
+
+    .burger-menu-trigger { width: 30px; height: 20px; display: flex; flex-direction: column; justify-content: space-between; cursor: none; z-index: 6000; position: relative; }
+    .burger-menu-trigger span { display: block; width: 100%; height: 2px; background: #fff; transition: 0.4s; }
+    .burger-menu-trigger.open span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+    .burger-menu-trigger.open span:nth-child(2) { opacity: 0; }
+    .burger-menu-trigger.open span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+
+    .snap { height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+    .slide { min-height: 100vh; scroll-snap-align: start; display: flex; flex-direction: column; position: relative; overflow: hidden; }
+    .section-nav { display: flex; justify-content: space-between; align-items: center; padding: 25px 40px; flex-shrink: 0; z-index: 10; }
+    
+    .projectsInner { padding: 0 40px 100px 80px; display: flex; flex-direction: column; justify-content: center; height: 100%; }
+    .projects-title { margin-top: -40px; margin-left: 20px; margin-bottom: 40px; text-align: left; }
+
+    /* LAYOUT ΓΙΑ ΤΟ ABOUT ΜΕ ΦΩΤΟΓΡΑΦΙΑ */
+    .aboutInnerContainer {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 60px;
+        padding: 0 80px;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+    .aboutPhotoSide { flex: 0 0 320px; }
+    .photoWrapper {
+        width: 100%;
+        aspect-ratio: 3/4;
+        border: 1px solid var(--red);
+        overflow: hidden;
+        border-radius: 4px;
+    }
+    .aboutImg {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: grayscale(100%);
+        transition: 0.5s ease;
+    }
+    .aboutImg:hover { filter: grayscale(0%); }
+    .aboutTextSide { flex: 1; max-width: 750px; }
+
+    .condensed { width: 100%; }
+    .small-p { 
+        font-size: clamp(15px, 1.6vw, 17.5px) !important;
+        line-height: 1.5 !important;
+        margin-bottom: 12px !important;
+        font-weight: 300 !important;
+        color: rgba(255, 255, 255, 0.85);
+    }
+    .no-margin-top { margin-top: 0; }
+    .last { margin-bottom: 0 !important; }
+
+    .intro { background: var(--red); color: #000; }
+    .logo-text { font-family: "Playfair Display", serif; font-weight: 800; font-size: 24px; color: #000; }
+    .topnav { font-family: "Playfair Display", serif; font-size: 26px; font-weight: 800; display: flex; gap: 30px; }
+    .navBtn { background: none; border: none; padding: 0; color: inherit; cursor: none; font: inherit; }
+    .marquee { border-top: 2px solid #000; border-bottom: 2px solid #000; padding: 12px 0; overflow: hidden; white-space: nowrap; width: 100%; }
+    .track { display: inline-block; animation: marquee 30s linear infinite; }
+    .track span { font-family: ui-monospace, monospace; font-size: 13px; padding-right: 40px; text-transform: uppercase; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .hero { flex: 1; display: flex; justify-content: center; align-items: center; text-align: center; }
+    .role { font-family: ui-monospace, monospace; font-size: 14px; letter-spacing: 0.3em; opacity: 0.8; }
+    .heroMeta { font-family: ui-monospace, monospace; font-size: 12px; display: flex; justify-content: center; gap: 15px; opacity: 0.8; }
+    .scroll-hint { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); font-family: "Playfair Display"; font-size: 22px; animation: bounce 1.5s infinite; z-index: 5; }
+    .white-hint { color: var(--white); }
+    @keyframes bounce { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, 10px); } }
+    .section-title { font-family: "Playfair Display", serif; font-size: clamp(40px, 6vw, 60px); color: var(--white); margin-bottom: 20px; text-transform: lowercase; }
+    .title-red { color: var(--red); }
+
+    .grid { 
+      display: flex; 
+      flex-wrap: nowrap; 
+      justify-content: center; 
+      gap: 25px; 
+      max-width: 1600px; 
+      margin: 0 auto;
+    }
+    
+    .card { 
+      flex: 1; 
+      min-width: 280px; 
+      max-width: 350px; 
+      border: 1px solid #1c2430; 
+      border-radius: 8px; 
+      padding: 10px; 
+      color: #fff; 
+      transition: border-color 0.4s ease, transform 0.4s ease; 
+    }
+    
+    .thumb-container { width: 100%; aspect-ratio: 1/1; background: #121722; overflow: hidden; border-radius: 4px; margin-bottom: 12px; }
+    .project-img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); transition: 0.6s ease; }
+    .card:hover { border-color: var(--red); transform: translateY(-5px); }
+    .card:hover .project-img { filter: grayscale(0%); transform: scale(1.08); }
+    .card-title { display: block; color: var(--red); font-size: 16px; text-transform: lowercase; font-family: "Playfair Display"; margin-bottom: 4px; }
+    .card-sub { font-size: 11px; opacity: 0.6; font-family: system-ui, sans-serif; }
+
+    .cursor { position: fixed; width: 25px; height: 25px; border-radius: 50%; pointer-events: none; z-index: 10000; top: 0; left: 0; background-color: #000; opacity: 0.8; transition: transform 0.1s ease-out, background-color 0.4s ease; }
+  </style>
+
+  <script>
+    const dot = document.getElementById("heroDot");
+    const snapRoot = document.getElementById("snapRoot");
+    const anchors = {
+      home: document.getElementById("anchorHome"),
+      about: document.getElementById("anchorAbout"),
+      projects: document.getElementById("anchorProjects")
+    };
+    const miniMenu = document.getElementById("miniMenu");
+    const triggers = [document.getElementById("btnAbout"), document.getElementById("btnProjects")];
+
+    const moveDot = () => {
+      const scrollPos = snapRoot.scrollTop;
+      const h = window.innerHeight;
+      let active = "home";
+      
+      if (scrollPos < h * 0.5) active = "home";
+      else if (scrollPos < h * 1.5) active = "about";
+      else active = "projects";
+
+      const target = anchors[active];
+      dot.style.backgroundColor = (active === "about") ? "var(--red)" : "white";
+
+      if (target) {
+        const rect = target.getBoundingClientRect();
+        dot.style.left = `${rect.left + rect.width / 2}px`;
+        dot.style.top = `${rect.top + rect.height / 2}px`;
+      }
+    };
+
+    snapRoot.addEventListener("scroll", moveDot);
+    window.addEventListener("resize", moveDot);
+    window.addEventListener("load", moveDot);
+    setTimeout(moveDot, 100);
+
+    const cursor = document.getElementById("customCursor");
+    window.addEventListener("mousemove", (e) => {
+      cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`;
+    });
+
+    const observerOptions = { root: snapRoot, threshold: 0.5 };
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const type = entry.target.getAttribute('data-cursor');
+          if (type === "intro") cursor.style.backgroundColor = "#000";
+          else if (type === "about") cursor.style.backgroundColor = "#fff";
+          else if (type === "projects") cursor.style.backgroundColor = "var(--red)";
+        }
+      });
+    }, observerOptions);
+    document.querySelectorAll('.slide').forEach(s => sectionObserver.observe(s));
+
+    const toggleMenu = () => {
+      const isOpen = miniMenu.classList.toggle("active");
+      triggers.forEach(t => t?.classList.toggle("open", isOpen));
+    };
+    if(btnAbout) btnAbout.onclick = toggleMenu;
+    if(btnProjects) btnProjects.onclick = toggleMenu;
+
+    document.querySelectorAll('[data-go]').forEach(btn => {
+      btn.onclick = () => {
+        const target = document.getElementById(btn.getAttribute("data-go"));
+        miniMenu.classList.remove("active");
+        triggers.forEach(t => t?.classList.remove("open"));
+        target?.scrollIntoView({ behavior: "smooth" });
+      };
+    });
+
+    document.querySelectorAll(".name-part").forEach(part => {
+      const text = part.textContent.trim();
+      part.innerHTML = text.split("").map(ch => `<span class="char">${ch}</span>`).join("");
+    });
+    document.querySelectorAll(".char").forEach(c => {
+      c.onmouseenter = () => c.style.color = "#fff";
+      c.onmouseleave = () => c.style.color = "#000";
+      c.style.transition = "color 0.2s";
+    });
+  </script>
+</body>
+</html>

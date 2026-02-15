@@ -1,0 +1,28 @@
+---
+const name = "ΤΟ ΟΝΟΜΑ ΣΟΥ";
+const email = "you@email.com";
+---
+<html lang="el">
+  <body style="font-family: system-ui; margin:0; background:#0b0d10; color:#e9eef5;">
+    <main style="max-width:900px; margin:0 auto; padding:64px 20px;">
+      <header style="display:flex; justify-content:space-between; align-items:baseline; gap:20px;">
+        <a href="/" style="color:#e9eef5; text-decoration:none;">← Home</a>
+        <nav style="display:flex; gap:16px;">
+          <a href="/projects" style="color:#e9eef5; text-decoration:none;">Projects</a>
+          <a href="/about" style="color:#e9eef5; text-decoration:none;">About</a>
+        </nav>
+      </header>
+
+      <h1 style="margin:22px 0 12px;">About</h1>
+
+      <p style="color:#aab4c0; line-height:1.8; font-size:16px;">
+        Είμαι ο/η {name}. Γράψε εδώ 5–8 γραμμές για σένα: ενδιαφέροντα (π.χ. housing, adaptive reuse),
+        τι ψάχνεις (internship/junior), και τι software χρησιμοποιείς.
+      </p>
+
+      <p style="color:#aab4c0;">
+        Email: <a href={`mailto:${email}`} style="color:#e9eef5;">{email}</a>
+      </p>
+    </main>
+  </body>
+</html>

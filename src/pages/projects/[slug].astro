@@ -1,0 +1,376 @@
+---
+import { ClientRouter } from 'astro:transitions';
+
+export async function getStaticPaths() {
+  const projects = [
+    { 
+      slug: "project-01", 
+      title: "Research Center in Petrochori",
+      number: "",
+      type: "Architectural Design", 
+      year: "2025-2026", 
+      location: "Petrochori, Greece", 
+      area: "-", 
+      description: "The research center was designed to showcase and study the arable land of Aetolia-Acarnania. Its architectural language, despite its contemporary aesthetic, integrates harmoniously with the landscape and the scale of Petrochori. The steep slope of the site is fully utilized, allowing the spaces to be embedded into the terrain, thus eliminating the need for excessive building height. The structure is sheltered by a metallic roof that follows the natural contours of the land, featuring strategic openings to optimize natural light. The proposal is completed by the landscaping of the surrounding area, where the placement of planters, stairways, and an outdoor amphitheater organizes movement, giving functional meaning to the exterior path.", 
+      images: [
+        "/FIL_9117.png",
+        "/p_01_02.png",
+        "/p_01_03.png",
+        "/p_01_04.png",
+        "/p_01_05.png",
+        "/p_01_06.png"
+      ]
+    },
+    { 
+      slug: "project-02", 
+      title: "Infinity Bagel",
+      number: "",
+      type: "Computational Design & Fabrication", 
+      year: "2025", 
+      location: "Athens, Greece", 
+      area: "   -", 
+      description: " \n\n Shape to Inflate' introduces an integrated computational methodology that simplifies the complex process of designing and fabricating free-form inflatable structures. Traditionally, the workflow for inflatables is fragmented, requiring multiple software tools to handle form-finding, physics simulation, and panelization. This research bridges that gap by providing an all-in-one solution within the Rhino/Grasshopper environment. \n\n The Workflow:\n\n The proposed method follows a streamlined, three-stage process:\n\n 1. Grid Generation: Utilizing the medial axis (skeleton) of a 2D boundary to generate a custom grid that defines both the structural logic and the fabrication panels.\n\n2. Simulation: A physics-based simulation converts the grid into a square mesh, applying pressure forces to achieve a constructible equilibrium form. 3. Panelization & Fabrication: The final inflated geometry is automatically projected into developable panels, which are then unrolled, labeled, and tabbed for immediate production.\n\nPrototype: The Figure-Eight Pavilion\nTo validate the workflow, a full-scale pavilion was designed and built during a week-long workshop. The structure, a complex convex form with dual through-holes, measured 11m x 5.5m x 1.7m. It was fabricated from 200 g/m² nylon sheets using heat-sealing techniques. The successful inflation and structural stability of the prototype proved the accuracy and accessibility of this integrated digital-to-physical pipeline.", 
+      images: [
+        "/p_02_01.jpg",
+        "/p_02_02.png",
+        "/p_02_03.png",
+        "/p_02_13.png",
+        "/p_02_07.png",
+        "/p_02_08.png",
+        "/p_02_09.png",
+        "/p_02_10.png",
+        "/p_02_11.jpg",
+        "/p_02_15.png",
+        "/p_02_16.png",
+        "/p_02_14.png",
+      ]
+    },
+    { 
+      slug: "project-03", 
+      title: "TEDxNTUA",
+      number: "",
+      type: "Visual Identity & Creative Direction", 
+      year: "2026", 
+      location: "Athens, Greece", 
+      area: "-", 
+      description: " \n\n Currently serving as a member of the TEDxNTUA Design (Graphics) team, I am involved in crafting the visual identity for the upcoming event. To date, the project includes the execution of the <<Meet the Team>> visual series and my creative proposal for this year's Theme. These works represent the initial phase of an ongoing design process, focused on translating the committee's vision into a compelling visual narrative.", 
+      images: [
+        "/p_03_01.jpg",
+        "/p_03_02.jpg",
+        "/p_03_03.jpg",
+        "/p_03_04.jpg",
+        "/p_03_05.jpg",
+        "/p_03_06.jpg",
+        "/p_03_07.jpg",
+        "/p_03_08.jpg",
+        "/p_03_09.jpg",
+        "/p_03_10.png"
+      ]
+    },
+    { 
+      slug: "project-04", 
+      title: "Convergence", // Αλλάξτε τον τίτλο εδώ
+      number: "",
+      type: "Computational Furniture Design & Digital Fabrication", 
+      year: "2025", 
+      location: "Athens, Greece", 
+      area: "-", 
+      description: " \n\n Our initial concept was to create an alternative table. Throughout our research, the work of Pantelis Xagoraris inspired us to experiment with curved surfaces, leading us to the final form of the furniture piece.\n\nDue to the structural constraint of using a single-curvature material, we preserved the design's fluid geometry through a distinct construction method. Developed and refined in Rhino, the final prototype utilizes a system of interlocking slots and protrusions, ensuring structural stability while translating complex 3D modeling into a physical, buildable object.", 
+      images: [
+        "/p_04_01.jpg",
+        "/p_04_07.png",
+        "/p_04_03.png",
+        "/p_04_04.jpg",
+        "/p_04_05.jpg",
+        "/p_04_06.jpg",
+        "/p_04_02.png"
+      ]
+    }
+  ];
+
+  return projects.map((p, index) => ({
+    params: { slug: p.slug },
+    props: { 
+      project: p, 
+      nextProject: index === projects.length - 1 ? null : projects[index + 1],
+      prevProject: index === 0 ? null : projects[index - 1]
+    },
+  }));
+}
+
+const { project, nextProject, prevProject } = Astro.props;
+---
+
+<html lang="el">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <title>{project.title} {project.number}. | A.K.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+  <ClientRouter />
+</head>
+
+<body>
+  <div class="cursor" id="customCursor"></div>
+
+  <header class="nav-header">
+    <a href="/#projects" class="back-link">← BACK TO PROJECTS</a>
+    <div class="logo">A.K.</div>
+    
+    <div class="nav-right">
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="nav-menu-box" id="navMenu">
+    <nav class="menu-list-container">
+      <a href="/" class="menu-item">home<span class="menu-dot">.</span></a>
+      <a href="/#about" class="menu-item">about<span class="menu-dot">.</span></a>
+      <a href="/#projects" class="menu-item">projects<span class="menu-dot">.</span></a>
+    </nav>
+  </div>
+
+  <main>
+    <section class="hero-section">
+      <div class="hero-container">
+        <div class={`carousel-snap-container ${project.slug === 'project-03' ? 'portrait-mode' : ''}`} id="carousel">
+          {project.images.map((img, index) => (
+            <div class="slide">
+              <img src={img} alt="" class="hero-img" />
+            </div>
+          ))}
+        </div>
+        <div class="carousel-nav-overlay">
+          <button class="nav-arrow left" id="prevBtn"><span>←</span></button>
+          <button class="nav-arrow right" id="nextBtn"><span>→</span></button>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <div class="container">
+        <div class="category reveal">{project.type}</div>
+        
+        <h1 class="project-title reveal">
+          {project.title} 
+          <span class="number">
+            {project.number}<span class="dot-motion">.</span>
+          </span>
+        </h1>
+
+        <div class="info-grid reveal">
+          <div class="info-item"><label>YEAR</label><span>{project.year}</span></div>
+          <div class="info-item"><label>LOCATION</label><span>{project.location}</span></div>
+          <div class="info-item"><label>TYPE</label><span>{project.type}</span></div>
+          <div class="info-item"><label>AREA</label><span>{project.area}</span></div>
+        </div>
+
+        <div class="description-container reveal">
+          <p>{project.description}</p>
+        </div>
+
+        <footer class="project-footer reveal">
+          <div class="footer-nav">
+            {prevProject ? (
+              <a href={`/projects/${prevProject.slug}`} class="nav-item prev" data-dir="prev">
+                <span class="nav-label">PREVIOUS</span>
+                <span class="nav-project-name">{prevProject.title} {prevProject.number}<span class="footer-dot">.</span></span>
+              </a>
+            ) : <div class="spacer"></div>}
+
+            {nextProject && (
+              <a href={`/projects/${nextProject.slug}`} class="nav-item next" data-dir="next">
+                <span class="nav-label">NEXT</span>
+                <span class="nav-project-name">{nextProject.title} {nextProject.number}<span class="footer-dot">.</span></span>
+              </a>
+            )}
+          </div>
+        </footer>
+      </div>
+    </section>
+  </main>
+
+  <style is:global>
+    :root {
+      --bg: #0b0d10;
+      --text: #ffffff;
+      --accent: #ff1a2d;
+      --gray: rgba(255, 255, 255, 0.4);
+      --border: rgba(255, 255, 255, 0.1);
+    }
+
+    body { margin: 0; background: var(--bg); color: var(--text); font-family: system-ui, sans-serif; overflow-x: hidden; cursor: none; }
+
+    .cursor { position: fixed; width: 20px; height: 20px; background: white; border-radius: 50%; pointer-events: none; z-index: 9999; mix-blend-mode: difference; top: 0; left: 0; transform: translate(-50%, -50%); transition: transform 0.1s ease-out; }
+
+    .nav-header { position: fixed; top: 0; width: 100%; padding: 30px 40px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; mix-blend-mode: difference; box-sizing: border-box; }
+    .back-link { text-decoration: none; color: white; font-size: 11px; letter-spacing: 0.15em; font-weight: 600; }
+    .logo { font-family: "Playfair Display"; font-weight: 900; font-size: 22px; position: absolute; left: 50%; transform: translateX(-50%); }
+
+    .menu-toggle { background: none; border: none; cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; width: 25px; height: 18px; padding: 0; pointer-events: auto; }
+    .line { width: 100%; height: 2px; background: white; transition: 0.3s cubic-bezier(0.76, 0, 0.24, 1); }
+    
+    .menu-toggle.active .line:nth-child(1) { transform: translateY(8px) rotate(45deg); background: var(--accent); }
+    .menu-toggle.active .line:nth-child(2) { opacity: 0; }
+    .menu-toggle.active .line:nth-child(3) { transform: translateY(-8px) rotate(-45deg); background: var(--accent); }
+
+    .nav-menu-box {
+      position: fixed; top: 70px; right: 40px;
+      background: #111; border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 30px 40px; z-index: 900;
+      visibility: hidden; opacity: 0; transform: translateY(-10px);
+      transition: 0.4s ease;
+    }
+    .nav-menu-box.active { visibility: visible; opacity: 1; transform: translateY(0); }
+
+    .menu-list-container { display: flex; flex-direction: column; gap: 20px; text-align: right; }
+    
+    .menu-item { 
+      text-decoration: none; color: white; 
+      font-family: "Playfair Display", serif; font-size: 24px; font-weight: 700; 
+      position: relative;
+      display: inline-block;
+      transition: color 0.3s ease;
+    }
+    
+    .menu-item::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 1px;
+      bottom: -2px;
+      left: 0;
+      background-color: var(--accent);
+      transform: scaleX(0);
+      transform-origin: bottom right;
+      transition: transform 0.3s ease-out;
+    }
+
+    .menu-item:hover { color: var(--accent); }
+    .menu-item:hover::after {
+      transform: scaleX(1);
+      transform-origin: bottom left;
+    }
+
+    .menu-dot { color: var(--accent); }
+
+    .hero-section { height: 65vh; width: 100%; position: relative; }
+    .hero-container { height: 100%; width: 100%; position: relative; overflow: hidden; }
+    
+    .carousel-snap-container { display: flex; width: 100%; height: 100%; overflow-x: scroll; scroll-snap-type: x mandatory; scroll-behavior: smooth; -ms-overflow-style: none; scrollbar-width: none; }
+    .carousel-snap-container::-webkit-scrollbar { display: none; }
+    
+    .slide { min-width: 100%; height: 100%; scroll-snap-align: center; flex-shrink: 0; display: flex; justify-content: center; align-items: center; }
+    
+    .hero-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .portrait-mode .slide { min-width: 45%; } 
+    .portrait-mode .hero-img { 
+        width: auto; 
+        height: 90%; 
+        object-fit: contain; 
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .carousel-nav-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: space-between; z-index: 50; pointer-events: none; }
+    .nav-arrow { width: 10%; height: 100%; border: none; background: transparent; color: white; pointer-events: auto; cursor: pointer; opacity: 0; transition: opacity 0.3s; display: flex; align-items: center; justify-content: center; }
+    .hero-section:hover .nav-arrow { opacity: 1; }
+    .nav-arrow span { background: rgba(0,0,0,0.4); padding: 15px 20px; border-radius: 50%; backdrop-filter: blur(10px); }
+
+    .project-title { font-family: "Playfair Display"; font-size: clamp(35px, 6vw, 80px); font-weight: 900; margin: 0 0 30px 0; line-height: 1.1; color: var(--accent); }
+    .dot-motion { color: var(--accent); display: inline-block; }
+
+    html[data-nav-dir="next"] .dot-motion { animation: slideInFromLeft 0.8s cubic-bezier(0.76, 0, 0.24, 1) forwards; }
+    html[data-nav-dir="prev"] .dot-motion { animation: slideInFromRight 0.8s cubic-bezier(0.76, 0, 0.24, 1) forwards; }
+    @keyframes slideInFromLeft { from { transform: translateX(-150px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+    @keyframes slideInFromRight { from { transform: translateX(150px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+    .content-section { padding: 40px 0 100px 0; }
+    .info-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 30px 0; margin-bottom: 30px; }
+    .info-item label { display: block; font-size: 9px; color: var(--gray); letter-spacing: 0.15em; margin-bottom: 10px; }
+    
+    .description-container p {
+      max-width: 750px;
+      font-size: 17px;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 80px;
+      font-weight: 300;
+      white-space: pre-line; 
+    }
+
+    .footer-nav { display: flex; justify-content: space-between; border-top: 1px solid var(--border); padding-top: 40px; }
+    .nav-item { text-decoration: none; color: white; opacity: 0.6; transition: 0.3s; display: flex; flex-direction: column; }
+    .nav-item.next { align-items: flex-end; text-align: right; }
+    .nav-item:hover { opacity: 1; color: var(--accent); }
+    .nav-project-name { font-family: "Playfair Display"; font-size: 24px; font-weight: 900; color: var(--accent); }
+
+    .reveal { opacity: 0; transform: translateY(30px); transition: 1s cubic-bezier(0.16, 1, 0.3, 1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+  </style>
+
+  <script>
+    const setup = () => {
+      const toggle = document.getElementById('menuToggle');
+      const menuBox = document.getElementById('navMenu');
+      
+      if (toggle && menuBox) {
+        toggle.onclick = (e) => {
+          e.stopPropagation();
+          toggle.classList.toggle('active');
+          menuBox.classList.toggle('active');
+        };
+        document.onclick = (e) => {
+          if (!menuBox.contains(e.target as Node) && !toggle.contains(e.target as Node)) {
+            toggle.classList.remove('active');
+            menuBox.classList.remove('active');
+          }
+        };
+      }
+
+      const carousel = document.getElementById('carousel');
+      const nextBtn = document.getElementById('nextBtn');
+      const prevBtn = document.getElementById('prevBtn');
+
+      if (carousel && nextBtn && prevBtn) {
+        nextBtn.onclick = () => {
+          const slide = carousel.querySelector('.slide');
+          const slideWidth = slide.clientWidth;
+          const isAtEnd = carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth - 10;
+          if (isAtEnd) carousel.scrollTo({ left: 0, behavior: 'smooth' });
+          else carousel.scrollBy({ left: slideWidth, behavior: 'smooth' });
+        };
+        prevBtn.onclick = () => {
+          const slide = carousel.querySelector('.slide');
+          const slideWidth = slide.clientWidth;
+          const isAtStart = carousel.scrollLeft <= 10;
+          if (isAtStart) carousel.scrollTo({ left: carousel.scrollWidth, behavior: 'smooth' });
+          else carousel.scrollBy({ left: -slideWidth, behavior: 'smooth' });
+        };
+      }
+
+      const cursor = document.getElementById('customCursor');
+      document.onmousemove = (e) => { if (cursor) { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; } };
+
+      document.querySelectorAll('.nav-item').forEach(link => {
+        link.addEventListener('click', () => localStorage.setItem('nav-direction', link.getAttribute('data-dir')));
+      });
+      const savedDir = localStorage.getItem('nav-direction');
+      if (savedDir) document.documentElement.setAttribute('data-nav-dir', savedDir);
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    };
+
+    setup();
+    document.addEventListener('astro:after-swap', setup);
+  </script>
+</body>
+</html>
